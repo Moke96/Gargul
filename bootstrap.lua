@@ -109,6 +109,7 @@ function GL:_init()
     self.DB:_init();
     self.Version:_init();
     self.Settings:_init();
+    self.RollObserverUI:_init();
 
     -- Determine which chat message locale to use
     local L = Gargul_L;

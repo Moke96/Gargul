@@ -63,6 +63,8 @@ function RollOff:announceStart(itemLink, time, note)
         self.CurrentRollOff.Rolls = {};
     end
 
+    self.CurrentRollOff.itemLink = itemLink;
+
     self:stopListeningForRolls();
     self:listenForRolls();
 
@@ -103,6 +105,8 @@ function RollOff:announceStart(itemLink, time, note)
     }:send();
 
     GL.Settings:set("UI.RollOff.timer", time);
+
+    GL.Events:fire("GL.ROLLOFF_STARTED");
 
     return true;
 end
@@ -439,6 +443,8 @@ function RollOff:start(CommMessage)
 
         -- Flash the game icon in case the player alt-tabbed
         FlashClientIcon();
+
+        self:listenForRolls();
 
         -- Let the application know that a rolloff has started
         GL.Events:fire("GL.ROLLOFF_STARTED");
